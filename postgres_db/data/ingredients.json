@@ -1,0 +1,104 @@
+{
+    "ingredients": [
+        {
+            "id": 1,
+            "name": "Tomato Sauce",
+            "description": "A rich sauce made from tomatoes, used as a base for many pizzas."
+        },
+        {
+            "id": 2,
+            "name": "Mozzarella Cheese",
+            "description": "A soft, white cheese used commonly on pizzas, known for its melting properties."
+        },
+        {
+            "id": 3,
+            "name": "Basil",
+            "description": "An aromatic herb with a sweet, peppery flavor, often used fresh."
+        },
+        {
+            "id": 4,
+            "name": "Pepperoni",
+            "description": "A spicy, cured sausage made from pork and beef, sliced thinly for pizza toppings."
+        },
+        {
+            "id": 5,
+            "name": "Ham",
+            "description": "Cured pork, often sliced thinly, used in Hawaiian and other pizza varieties."
+        },
+        {
+            "id": 6,
+            "name": "Pineapple",
+            "description": "Sweet tropical fruit, used as a topping especially in Hawaiian pizzas."
+        },
+        {
+            "id": 7,
+            "name": "Anchovies",
+            "description": "Small, salt-cured fish filets, giving a strong umami flavor on pizzas."
+        },
+        {
+            "id": 8,
+            "name": "Olives",
+            "description": "Fruit of the olive tree, often used in slices on pizzas for a tangy taste."
+        },
+        {
+            "id": 9,
+            "name": "Artichokes",
+            "description": "A thistle plant vegetal, used as a pizza topping for its tender texture."
+        },
+        {
+            "id": 10,
+            "name": "Mushrooms",
+            "description": "Fungi with a meaty texture and earthy flavor, commonly used on vegetarian and other pizzas."
+        },
+        {
+            "id": 11,
+            "name": "Bell Peppers",
+            "description": "Sweet peppers in various colors, used for their crunch and color on pizzas."
+        },
+        {
+            "id": 12,
+            "name": "Onions",
+            "description": "Bulb vegetables used for their pungency and sweetness when cooked."
+        },
+        {
+            "id": 13,
+            "name": "Parmesan Cheese",
+            "description": "A hard, aged cheese with a nutty flavor used to top pizzas."
+        },
+        {
+            "id": 14,
+            "name": "Gorgonzola",
+            "description": "A veined Italian blue cheese, known for its strong and bold flavor."
+        },
+        {
+            "id": 15,
+            "name": "Provolone",
+            "description": "An Italian cheese with a mild flavor, used in Four Cheese pizzas."
+        },
+        {
+            "id": 16,
+            "name": "Ricotta",
+            "description": "A creamy, mild cheese used in combination with other cheeses on pizzas."
+        },
+        {
+            "id": 17,
+            "name": "Cherry Tomatoes",
+            "description": "Small, sweet tomatoes, often halved and used fresh on Caprese pizzas."
+        },
+        {
+            "id": 18,
+            "name": "Olive Oil",
+            "description": "A flavorful oil pressed from olives, used to enhance the flavor of pizzas."
+        },
+        {
+            "id": 19,
+            "name": "Garlic",
+            "description": "A pungent bulb used to add depth of flavor to pizzas and sauces."
+        },
+        {
+            "id": 20,
+            "name": "Oregano",
+            "description": "A herb with a slightly bitter taste, often used dried for seasoning pizzas."
+        }
+    ]
+}

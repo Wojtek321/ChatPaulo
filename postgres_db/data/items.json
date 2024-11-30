@@ -1,0 +1,109 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "name": "Margherita",
+            "description": "Classic Italian pizza topped with fresh tomatoes, mozzarella cheese, fresh basil, and a drizzle of olive oil.",
+            "price": 12.99,
+            "type": "Pizza"
+        },
+        {
+            "id": 2,
+            "name": "Pepperoni",
+            "description": "A popular choice featuring a tomato sauce base, mozzarella cheese, and lots of spicy pepperoni slices.",
+            "price": 14.99,
+            "type": "Pizza"
+        },
+        {
+            "id": 3,
+            "name": "Hawaiian",
+            "description": "Topped with tomato sauce, mozzarella, ham, and sweet pineapple chunks for a tropical twist.",
+            "price": 13.99,
+            "type": "Pizza"
+        },
+        {
+            "id": 4,
+            "name": "Neapoletana",
+            "description": "Traditional Neapolitan pizza made with San Marzano tomatoes, mozzarella di bufala, fresh basil, salt, and extra-virgin olive oil.",
+            "price": 15.99,
+            "type": "Pizza"
+        },
+        {
+            "id": 5,
+            "name": "Capricciosa",
+            "description": "A delightful combination of tomato sauce, mozzarella, artichokes, mushrooms, ham, and olives.",
+            "price": 16.99,
+            "type": "Pizza"
+        },
+        {
+            "id": 6,
+            "name": "Romana",
+            "description": "Features tomato sauce, mozzarella, anchovies, capers, and oregano, offering a distinct and savory taste.",
+            "price": 14.49,
+            "type": "Pizza"
+        },
+        {
+            "id": 7,
+            "name": "Carbonara",
+            "description": "A creative take on carbonara pasta with a sauce of cream, eggs, Parmesan, and pancetta atop a pizza crust.",
+            "price": 15.49,
+            "type": "Pizza"
+        },
+        {
+            "id": 8,
+            "name": "Vegetariana",
+            "description": "Loaded with fresh vegetables including bell peppers, onions, mushrooms, and olives, on a tomato sauce base with mozzarella.",
+            "price": 13.49,
+            "type": "Pizza"
+        },
+        {
+            "id": 9,
+            "name": "Four Cheese",
+            "description": "A cheese lover\u2019s delight combining mozzarella, Parmesan, gorgonzola, and fontina cheese on a tomato base.",
+            "price": 14.99,
+            "type": "Pizza"
+        },
+        {
+            "id": 10,
+            "name": "Caprese",
+            "description": "Inspired by the Caprese salad, this pizza is topped with cherry tomatoes, mozzarella di bufala, fresh basil, and a balsamic glaze.",
+            "price": 15.49,
+            "type": "Pizza"
+        },
+        {
+            "id": 11,
+            "name": "Coca-Cola",
+            "description": "The classic and refreshing cola beverage that pairs well with any meal.",
+            "price": 2.99,
+            "type": "Beverage"
+        },
+        {
+            "id": 12,
+            "name": "Lemonade",
+            "description": "A chilled glass of fresh lemonade, perfect for a tangy and sweet refreshment.",
+            "price": 3.49,
+            "type": "Beverage"
+        },
+        {
+            "id": 13,
+            "name": "Iced Tea",
+            "description": "Freshly brewed iced tea, available sweetened or unsweetened, served with a slice of lemon.",
+            "price": 3.49,
+            "type": "Beverage"
+        },
+        {
+            "id": 14,
+            "name": "Sparkling Water",
+            "description": "A refreshing and bubbly alternative to still water, perfect for cleansing the palate.",
+            "price": 2.49,
+            "type": "Beverage"
+        },
+        {
+            "id": 15,
+            "name": "Craft Beer",
+            "description": "A selection of local craft beers to complement your pizza choice, with varying styles and flavors.",
+            "price": 5.99,
+            "type": "Beverage"
+        }
+    ]
+}
