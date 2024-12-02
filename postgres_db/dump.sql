@@ -229,11 +229,34 @@ CREATE TABLE public.recipe (
     item_id integer NOT NULL,
     ingredient_id integer NOT NULL,
     quantity smallint NOT NULL,
-    unit character varying(50) NOT NULL
+    unit character varying(50) NOT NULL,
+    id integer NOT NULL
 );
 
 
 ALTER TABLE public.recipe OWNER TO postgres;
+
+--
+-- Name: recipe_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.recipe_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.recipe_id_seq OWNER TO postgres;
+
+--
+-- Name: recipe_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.recipe_id_seq OWNED BY public.recipe.id;
+
 
 --
 -- Name: ingredient id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -261,6 +284,13 @@ ALTER TABLE ONLY public."order" ALTER COLUMN id SET DEFAULT nextval('public.orde
 --
 
 ALTER TABLE ONLY public.order_item ALTER COLUMN id SET DEFAULT nextval('public.order_item_id_seq'::regclass);
+
+
+--
+-- Name: recipe id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.recipe ALTER COLUMN id SET DEFAULT nextval('public.recipe_id_seq'::regclass);
 
 
 --
@@ -334,52 +364,52 @@ COPY public.order_item (id, order_id, item_id, quantity, price, detail_note) FRO
 -- Data for Name: recipe; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.recipe (item_id, ingredient_id, quantity, unit) FROM stdin;
-1	1	100	grams
-1	2	150	grams
-1	3	10	leaves
-1	18	5	ml
-2	1	100	grams
-2	2	150	grams
-2	4	100	grams
-3	1	100	grams
-3	2	150	grams
-3	5	75	grams
-3	6	75	grams
-4	1	100	grams
-4	2	150	grams
-4	3	10	leaves
-4	18	5	ml
-5	1	100	grams
-5	2	150	grams
-5	9	50	grams
-5	10	50	grams
-5	5	50	grams
-5	8	30	grams
-6	1	100	grams
-6	2	150	grams
-6	7	30	grams
-6	8	30	grams
-6	20	5	grams
-7	2	150	grams
-7	19	5	grams
-7	13	30	grams
-7	5	75	grams
-8	1	100	grams
-8	2	150	grams
-8	11	50	grams
-8	12	50	grams
-8	10	50	grams
-8	8	30	grams
-9	1	100	grams
-9	2	50	grams
-9	13	50	grams
-9	14	50	grams
-9	15	50	grams
-10	17	100	grams
-10	2	100	grams
-10	3	10	leaves
-10	18	5	ml
+COPY public.recipe (item_id, ingredient_id, quantity, unit, id) FROM stdin;
+1	1	100	grams	1
+1	2	150	grams	2
+1	3	10	leaves	3
+1	18	5	ml	4
+2	1	100	grams	5
+2	2	150	grams	6
+2	4	100	grams	7
+3	1	100	grams	8
+3	2	150	grams	9
+3	5	75	grams	10
+3	6	75	grams	11
+4	1	100	grams	12
+4	2	150	grams	13
+4	3	10	leaves	14
+4	18	5	ml	15
+5	1	100	grams	16
+5	2	150	grams	17
+5	9	50	grams	18
+5	10	50	grams	19
+5	5	50	grams	20
+5	8	30	grams	21
+6	1	100	grams	22
+6	2	150	grams	23
+6	7	30	grams	24
+6	8	30	grams	25
+6	20	5	grams	26
+7	2	150	grams	27
+7	19	5	grams	28
+7	13	30	grams	29
+7	5	75	grams	30
+8	1	100	grams	31
+8	2	150	grams	32
+8	11	50	grams	33
+8	12	50	grams	34
+8	10	50	grams	35
+8	8	30	grams	36
+9	1	100	grams	37
+9	2	50	grams	38
+9	13	50	grams	39
+9	14	50	grams	40
+9	15	50	grams	41
+10	17	100	grams	42
+10	2	100	grams	43
+10	3	10	leaves	44
+10	18	5	ml	45
 \.
 
 
@@ -409,6 +439,13 @@ SELECT pg_catalog.setval('public.order_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.order_item_id_seq', 1, false);
+
+
+--
+-- Name: recipe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.recipe_id_seq', 45, true);
 
 
 --
@@ -448,7 +485,14 @@ ALTER TABLE ONLY public."order"
 --
 
 ALTER TABLE ONLY public.recipe
-    ADD CONSTRAINT recipe_pkey PRIMARY KEY (ingredient_id, item_id);
+    ADD CONSTRAINT recipe_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: unique_item_ingredient; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX unique_item_ingredient ON public.recipe USING btree (item_id, ingredient_id);
 
 
 --
@@ -456,7 +500,7 @@ ALTER TABLE ONLY public.recipe
 --
 
 ALTER TABLE ONLY public.order_item
-    ADD CONSTRAINT "order_item_item_FK" FOREIGN KEY (item_id) REFERENCES public.item(id);
+    ADD CONSTRAINT "order_item_item_FK" FOREIGN KEY (item_id) REFERENCES public.item(id) ON DELETE CASCADE;
 
 
 --
@@ -464,7 +508,7 @@ ALTER TABLE ONLY public.order_item
 --
 
 ALTER TABLE ONLY public.order_item
-    ADD CONSTRAINT "order_item_order_FK" FOREIGN KEY (order_id) REFERENCES public."order"(id);
+    ADD CONSTRAINT "order_item_order_FK" FOREIGN KEY (order_id) REFERENCES public."order"(id) ON DELETE CASCADE;
 
 
 --
@@ -472,7 +516,7 @@ ALTER TABLE ONLY public.order_item
 --
 
 ALTER TABLE ONLY public.recipe
-    ADD CONSTRAINT "recipe_ingredient_FK" FOREIGN KEY (ingredient_id) REFERENCES public.ingredient(id);
+    ADD CONSTRAINT "recipe_ingredient_FK" FOREIGN KEY (ingredient_id) REFERENCES public.ingredient(id) ON DELETE CASCADE;
 
 
 --
@@ -480,7 +524,7 @@ ALTER TABLE ONLY public.recipe
 --
 
 ALTER TABLE ONLY public.recipe
-    ADD CONSTRAINT "recipe_item_FK" FOREIGN KEY (item_id) REFERENCES public.item(id);
+    ADD CONSTRAINT "recipe_item_FK" FOREIGN KEY (item_id) REFERENCES public.item(id) ON DELETE CASCADE;
 
 
 --
