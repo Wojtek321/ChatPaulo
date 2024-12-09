@@ -43,8 +43,8 @@ def generate_points(docs: List[Document], metadata_key: str) -> List[models.Poin
             id=str(uuid.uuid4()),
             vector=embed,
             payload={
-                'type': doc.metadata.get(metadata_key),
-                'doc': doc.page_content
+                'metadata': {'type': doc.metadata.get(metadata_key)},
+                'page_content': doc.page_content
             }
         )
 

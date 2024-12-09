@@ -12,7 +12,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = ['item', 'quantity', 'price', 'detail_note']
         extra_kwargs = {
-            'price': {'read_only': True}
+            'price': {'read_only': True},
+            'quantity': {'default': 1}
         }
 
 
