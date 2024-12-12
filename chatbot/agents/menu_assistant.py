@@ -7,7 +7,7 @@ menu_assistant_prompt = ChatPromptTemplate([
     ('system', IDENTITY),
     ('user', "Utilize the available tools to accurately address user inquiries regarding the menu, ingredients, pizzas, or any other food-related topics." \
              "If the user requests assistance beyond the scope of these tools, escalate the conversation using 'CompleteOrEscalate.' " \
-             "Focus on providing clear and concise responses without unnecessary delays. Avoid inventing non-existent tools or functionalities"),
+             + ADDITIONAL_GUARDRAILS),
     ('assistant', "Understood"),
     ('placeholder', '{messages}'),
 ])
