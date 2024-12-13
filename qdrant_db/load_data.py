@@ -2,13 +2,16 @@ from qdrant_client import QdrantClient, models
 from openai import OpenAI
 from langchain_core.documents import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from dotenv import load_dotenv
 from typing import List
 import os
 import pathlib
 import uuid
 
+load_dotenv()
 
-qdrantClient = QdrantClient("http://localhost:6333")
+
+qdrantClient = QdrantClient("http://qdrant")
 openaiClient = OpenAI()
 
 DATA_FOLDER_PATH = pathlib.Path(__file__).parent / 'data'

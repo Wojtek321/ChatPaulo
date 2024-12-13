@@ -9,13 +9,13 @@ services:
 #        ports:
 #            - "5432:5432"
         volumes:
-            - ./postgres_db/dump.sql:/docker-entrypoint-initdb.d/init.sql
+            - ../postgres_db/dump.sql:/docker-entrypoint-initdb.d/init.sql
         healthcheck:
             test: ["CMD-SHELL", "pg_isready -U postgres"]
             interval: 2s
             timeout: 5s
             retries: 5
-    
+
 #    pgadmin:
 #        image: dpage/pgadmin4
 #        container_name: pgadmin
@@ -26,20 +26,38 @@ services:
 #          PGADMIN_DEFAULT_PASSWORD: admin
 
     qdrant:
-        image: qdrant/qdrant
+        build:
+            context: ..
+            dockerfile: /docker/qdrant_db/Dockerfile
         container_name: qdrant
         ports:
             - "6333:6333"
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:6333/healthz"]
+            interval: 2s
+            timeout: 2s
+            retries: 20
+
+    data_loader:
+        build:
+            context: ..
+            dockerfile: docker/data_loader/Dockerfile
+        container_name: data_loader
+        env_file: "../.env"
+        depends_on:
+            qdrant:
+                condition: service_healthy
 
     django:
         build:
-            context: ./db_api
+            context: ..
+            dockerfile: docker/db_api/Dockerfile
         container_name: django_api
         depends_on:
             postgres:
                 condition: service_healthy
         volumes:
-            - ./db_api:/app
+            - ../db_api:/app
         ports:
             - "8000:8000"
         environment:

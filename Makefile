@@ -1,8 +1,11 @@
 run:
-	docker compose up -d
+	docker compose -f ./docker/docker-compose.yml up -d
 
 down:
-	docker compose down --remove-orphans
+	docker compose -f ./docker/docker-compose.yml down --remove-orphans
+
+build:
+	docker compose -f ./docker/docker-compose.yml build
 
 launch:
 	if docker exec -i postgress psql -U postgres -c "SELECT 1 FROM pg_database WHERE datname = 'restaurant_db'" | grep -q 1; then \
