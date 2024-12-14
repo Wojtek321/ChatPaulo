@@ -4,10 +4,13 @@ from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.checkpoint.memory import MemorySaver
 from IPython.display import Image
+from dotenv import load_dotenv
 
 from state import State, create_entry_node, to_primary_assistant
-from tools import CompleteOrEscalate, ToOrderAssistant, ToMenuAssistant
+from tools import CompleteOrEscalate, MenuInfoTool, OrderManagementTool
 from agents import primary_assistant_prompt, primary_assistant_tools, menu_assistant_prompt, menu_assistant_tools, order_assistant_prompt, order_assistant_tools, Assistant
+
+load_dotenv()
 
 
 # llm = ChatOpenAI(model='gpt-4o-mini')
@@ -42,9 +45,9 @@ def route_primary_assistant(state: State):
     tool_calls = state['messages'][-1].tool_calls
     if tool_calls:
         tool_name = tool_calls[0]['name']
-        if tool_name == ToMenuAssistant.__name__:
+        if tool_name == MenuInfoTool.__name__:
             return 'enter_menu'
-        elif tool_name == ToOrderAssistant.__name__:
+        elif tool_name == OrderManagementTool.__name__:
             return 'enter_order'
         return 'primary_tools'
 

@@ -22,7 +22,7 @@ def to_primary_assistant(state: State) -> Dict:
     if last_message.tool_calls:
         messages.append(
             ToolMessage(
-                content="Returning control to primary assistant. Please reflect on the past conversation and assist the user as needed.",
+                content="Please proceed by reviewing the previous discussion and offering the assistance to the customer as needed.",
                 tool_call_id=last_message.tool_calls[0]['id']
             )
         )
@@ -40,10 +40,10 @@ def create_entry_node(assistant_name: str, new_assistant: str) -> Callable:
         return {
             'messages': [
                 ToolMessage(
-                    content=f"The system has switched to the {assistant_name}. Reflect on the above conversation between the host assistant and the user. "
-                            "The user's intent is unsatisfied. Utilize the provided tools to address the user's request effectively. "
-                            "If the user changes their intent or needs help for other tasks, call the CompleteOrEscalate to let the primary host assistant take control. "
-                            "Maintain focus on resolving the user's needs without explicitly identifying your role.",
+                    content=(f"The system has switched to the {assistant_name}. Reflect on the above conversation. "
+                            "The customer's intent is unsatisfied. Utilize the provided tools to address the user's request effectively. "
+                            "If the user's request cannot be fulfilled or they change their intent, invoke 'CompleteOrEscalate' without generating any additional text. "
+                            "Do not respond to this message directly. Focus on executing the necessary actions to fulfill the request."),
                     tool_call_id=tool_call_id,
                 )
             ],

@@ -7,7 +7,7 @@ from typing import Annotated
 
 embeddings = OpenAIEmbeddings(model='text-embedding-3-small')
 
-QDRANT_URL = 'http://localhost:6333'
+QDRANT_URL = 'http://qdrant:6333'
 
 qdrant_pizzas = QdrantVectorStore.from_existing_collection(
     embedding=embeddings,
@@ -46,7 +46,7 @@ def fetch_pizza_details(
         ]
     )
 
-    retrieved_docs = qdrant_pizzas.similarity_search(query=query, filter=filter, k=3)
+    retrieved_docs = qdrant_pizzas.similarity_search(query=query, filter=filter, k=4)
     response = '\n'.join([doc.page_content for doc in retrieved_docs])
     return response
 
@@ -62,6 +62,6 @@ def fetch_pizzeria_info(
     It is not suitable for menu or ingredient-related queries.
     The function returns a string containing the relevant details about the pizzeria.
     """
-    retrieved_docs = qdrant_pizzeria.similarity_search(query=query, k=3)
+    retrieved_docs = qdrant_pizzeria.similarity_search(query=query, k=4)
     response = '\n'.join([doc.page_content for doc in retrieved_docs])
     return response

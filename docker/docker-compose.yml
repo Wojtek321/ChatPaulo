@@ -66,3 +66,18 @@ services:
             POSTGRES_PASSWORD: postgres
             POSTGRES_HOST: postgress
             POSTGRES_PORT: 5432
+
+    chatbot:
+        build:
+            context: ..
+            dockerfile: docker/chatbot/Dockerfile
+        container_name: chatbot
+        restart: on-failure
+        env_file: "../.env"
+        ports:
+            - "80:7860"
+        depends_on:
+            data_loader:
+                condition: service_completed_successfully
+            django:
+                condition: service_started

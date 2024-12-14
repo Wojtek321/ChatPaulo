@@ -1,5 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate
-from tools import fetch_pizzeria_info, ToMenuAssistant, ToOrderAssistant
+from tools import fetch_pizzeria_info, MenuInfoTool, OrderManagementTool
 from prompts import IDENTITY, ADDITIONAL_GUARDRAILS
 
 
@@ -13,4 +13,4 @@ primary_assistant_prompt = ChatPromptTemplate([
     ('placeholder', '{messages}'),
 ])
 
-primary_assistant_tools = [fetch_pizzeria_info, ToMenuAssistant, ToOrderAssistant]
+primary_assistant_tools = [fetch_pizzeria_info, MenuInfoTool, OrderManagementTool]

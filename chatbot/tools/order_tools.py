@@ -3,7 +3,7 @@ import requests
 from typing import List, Dict, Any, Annotated
 
 
-API_ENDPOINT = 'http://localhost:8000/api/'
+API_ENDPOINT = 'http://django:8000/api/'
 
 
 @tool
