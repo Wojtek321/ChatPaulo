@@ -64,7 +64,7 @@ if __name__ == '__main__':
     collection_name = 'pizzas'
     vector_store = create_collection(qdrant_client, collection_name)
     folder_path = DATA_FOLDER_PATH / 'pizzas'
-    docs = get_documents(folder_path, metadata_key='pizza_type', chunk_size=300, chunk_overlap=50)
+    docs = get_documents(folder_path, metadata_key='type', chunk_size=300, chunk_overlap=50)
     ids = [str(uuid.uuid4()) for _ in range(len(docs))]
     vector_store.add_documents(docs, ids=ids)
     print(f"Uploaded {len(docs)} points to collection '{collection_name}'.")

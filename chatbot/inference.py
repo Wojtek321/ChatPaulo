@@ -31,5 +31,5 @@ gr.ChatInterface(
     textbox=gr.Textbox(placeholder="Send message to Paulo", container=False, scale=7, submit_btn=True, stop_btn=True),
     description="Interact with Paulo to explore the menu, check ingredients, and place an order.",
     title="Paulo - Pizzeria Assistant",
-    examples=["Who are you?", "What can i eat?", "I want to place an order", "Do you have vegetarian options?"],
+    examples=["Who are you?", "What can i eat?", "I want to place an order", "Tell ma about Neapoletana"],
 ).queue().launch()
