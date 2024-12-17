@@ -5,8 +5,10 @@ from prompts import IDENTITY, ADDITIONAL_GUARDRAILS
 
 menu_assistant_prompt = ChatPromptTemplate([
     ('system', IDENTITY),
-    ('user', "Your role is to respond to customer queries related to the menu, ingredients, or other food-related topics. " \
-             "If the user requests assistance beyond the scope of your tools, escalate the conversation using 'CompleteOrEscalate.' "
+    ('user', "Your role is to answer customer questions about the menu, ingredients, or any other food-related topics. " \
+             "You are expected to use the provided tools to assist customers effectively. " \
+             "If the user requests assistance beyond the scope of your role, responsibilities, or available tools, " \
+             "you should call 'CompleteOrEscalate' to escalate the conversation for further handling. "
              + ADDITIONAL_GUARDRAILS),
     ('assistant', "Understood"),
     ('placeholder', '{messages}'),

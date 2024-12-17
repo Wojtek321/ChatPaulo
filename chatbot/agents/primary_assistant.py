@@ -6,8 +6,8 @@ from prompts import IDENTITY, ADDITIONAL_GUARDRAILS
 primary_assistant_prompt = ChatPromptTemplate([
     ('system', IDENTITY),
     ('user', "Your role is to warmly welcome customers. " \
-             "You are responsible for answering customer inquiries regarding the pizzeria. "
-             "If the customer needs help with menu-related inquiries or placing an order, you should use the relevant tool."
+             "You are responsible for answering customer inquiries regarding the pizzeria. " \
+             "If the customer needs help with menu-related inquiries or placing an order, you should use the relevant tool. "
              + ADDITIONAL_GUARDRAILS),
     ('assistant', "Understood"),
     ('placeholder', '{messages}'),

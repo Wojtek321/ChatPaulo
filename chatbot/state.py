@@ -41,9 +41,8 @@ def create_entry_node(assistant_name: str, new_assistant: str) -> Callable:
             'messages': [
                 ToolMessage(
                     content=(f"The system has switched to the {assistant_name}. Reflect on the above conversation. "
-                            "The customer's intent is unsatisfied. Utilize the provided tools to address the user's request effectively. "
-                            "If the user's request cannot be fulfilled or they change their intent, invoke 'CompleteOrEscalate' without generating any additional text. "
-                            "Do not respond to this message directly. Focus on executing the necessary actions to fulfill the request."),
+                             "Do not respond to this message directly. Focus solely on using the available tools to assist the customer and fulfill their request. "
+                             "If the request cannot be completed or the customer changes their intent, invoke 'CompleteOrEscalate' without generating any additional text."),
                     tool_call_id=tool_call_id,
                 )
             ],

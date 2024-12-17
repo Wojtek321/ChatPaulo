@@ -13,7 +13,7 @@ from agents import primary_assistant_prompt, primary_assistant_tools, menu_assis
 load_dotenv()
 
 
-# llm = ChatOpenAI(model='gpt-4o-mini')
+# llm = ChatOpenAI(model='gpt-4o')
 llm = ChatAnthropic(model='claude-3-5-haiku-latest')
 
 workflow = StateGraph(State)
@@ -74,12 +74,12 @@ def route_menu_assistant(state: State):
 
     tool_calls = state['messages'][-1].tool_calls
     if any(tc['name'] == CompleteOrEscalate.__name__ for tc in tool_calls):
-        return 'leave_skill'
+        return 'return_to_primary'
 
     return 'menu_tools'
 
 
-workflow.add_conditional_edges('menu_assistant', route_menu_assistant, ['menu_tools', 'leave_skill', END])
+workflow.add_conditional_edges('menu_assistant', route_menu_assistant, ['menu_tools', 'return_to_primary', END])
 workflow.add_edge('menu_tools', 'menu_assistant')
 
 
@@ -99,18 +99,18 @@ def route_order_assistant(state: State):
 
     tool_calls = state['messages'][-1].tool_calls
     if any(tc['name'] == CompleteOrEscalate.__name__ for tc in tool_calls):
-        return 'leave_skill'
+        return 'return_to_primary'
 
     return 'order_tools'
 
 
-workflow.add_conditional_edges('order_assistant', route_order_assistant, ['order_tools', 'leave_skill', END])
+workflow.add_conditional_edges('order_assistant', route_order_assistant, ['order_tools', 'return_to_primary', END])
 workflow.add_edge('order_tools', 'order_assistant')
 
 
 # back to primary assistant
-workflow.add_node('leave_skill', to_primary_assistant)
-workflow.add_edge('leave_skill', 'primary_assistant')
+workflow.add_node('return_to_primary', to_primary_assistant)
+workflow.add_edge('return_to_primary', 'primary_assistant')
 
 
 memory = MemorySaver()
