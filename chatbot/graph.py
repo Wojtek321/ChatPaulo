@@ -123,7 +123,7 @@ graph = workflow.compile(
 if __name__ == '__main__':
     try:
         img = Image(graph.get_graph(xray=True).draw_mermaid_png())
-        with open('graph.png', 'wb') as f:
+        with open('../assets/graph_workflow.png', 'wb') as f:
             f.write(img.data)
     except Exception:
         pass
