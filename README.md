@@ -16,6 +16,9 @@ It can provide menu information, assist with order placement, and manage other c
 
 - **Qdrant (Vector Database)**: Stores detailed and specific information about each type of pizza and additional details about the pizzeria.
 
+**Note:** 
+All data in both the PostgreSQL and Qdrant databases has been artificially generated. Some of this data was created using structured outputs technique.
+
 ## Chatbot Workflow
 
 ![Chatbot Workflow](/assets/graph_workflow.png)
