@@ -4,7 +4,7 @@ Welcome to ChatPaulo, an AI-powered assistant designed to help customers interac
 It can provide menu information, assist with order placement, and manage other customer inquiries.
 
 ## System Architecture
-![System Architecture](https://github.com/Wojtek321/ChatPaulo/blob/master/assets/architecture.png?raw=true)
+![System Architecture](/assets/architecture.png)
 
 #### Components:
 
@@ -18,7 +18,7 @@ It can provide menu information, assist with order placement, and manage other c
 
 ## Chatbot Workflow
 
-![Chatbot Workflow](https://github.com/Wojtek321/ChatPaulo/blob/master/assets/graph_workflow.png?raw=true)
+![Chatbot Workflow](/assets/graph_workflow.png)
 
 The chatbot workflow illustrates the interactions between the agents:
 
