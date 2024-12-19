@@ -1,5 +1,5 @@
 from langchain_core.prompts import ChatPromptTemplate
-from tools import fetch_full_menu, fetch_order, place_on_site_order, place_pickup_order, place_delivery_order, CompleteOrEscalate
+from tools import fetch_full_menu, fetch_order, place_on_site_order, place_pickup_order, place_delivery_order, CompleteOrEscalate, cancel_order
 from prompts import IDENTITY, ADDITIONAL_GUARDRAILS
 
 
@@ -14,4 +14,4 @@ order_assistant_prompt = ChatPromptTemplate([
     ('placeholder', '{messages}'),
 ])
 
-order_assistant_tools = [fetch_full_menu, fetch_order, place_on_site_order, place_pickup_order, place_delivery_order, CompleteOrEscalate]
+order_assistant_tools = [fetch_full_menu, fetch_order, place_on_site_order, place_pickup_order, place_delivery_order, cancel_order, CompleteOrEscalate]

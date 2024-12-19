@@ -101,3 +101,21 @@ def place_delivery_order(
 
     response = requests.post(API_ENDPOINT + 'orders/', json=data)
     return response.json()
+
+
+@tool
+def cancel_order(
+    i: Annotated[int, 'The unique identifier (ID) of the order']
+) -> Dict[str, Any]:
+    """
+    Deletes a specific order, based on the unique ID provided.
+    Useful when a customer wants to cancel or remove an order.
+    This function is not intended for creating or updating orders.
+    Returns a dictionary with a success message or error details.
+    """
+    response = requests.delete(API_ENDPOINT + f'orders/{i}/')
+
+    if response.status_code == 204:
+        return {'message': 'Order successfully deleted.'}
+    else:
+        return response.json()
