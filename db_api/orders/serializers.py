@@ -46,8 +46,7 @@ class OrderSerializer(serializers.ModelSerializer):
             self._validate_pick_up(data)
         elif order_type == 'delivery':
             self._validate_delivery(data)
-        else:
-            raise serializers.ValidationError(f"Invalid order type: '{order_type}'.")
+
         return data
 
     def _validate_on_site(self, data):
@@ -87,7 +86,6 @@ class OrderSerializer(serializers.ModelSerializer):
             quantity = item_data['quantity']
             total_price += price * quantity
 
-
         order = Order.objects.create(total_price=total_price, **validated_data)
 
         for item_data in items_data:
@@ -106,4 +104,37 @@ class OrderSerializer(serializers.ModelSerializer):
 
         return order
 
-    # TODO order update
+    def update(self, instance, validated_data):
+        instance.order_note = validated_data.get('order_note', instance.order_note)
+        instance.customer_name = validated_data.get('customer_name', instance.customer_name)
+        instance.customer_phone = validated_data.get('customer_phone', instance.customer_phone)
+        instance.address = validated_data.get('address', instance.address)
+
+        instance.save()
+
+        items_data = validated_data.pop('orderitem_set', [])
+
+        if items_data:
+            instance.orderitem_set.all().delete()
+
+            total_price = 0
+            for item_data in items_data:
+                item = item_data['item']
+                price = item.price
+                quantity = item_data['quantity']
+                detail_note = item_data.get('detail_note')
+
+                OrderItem.objects.create(
+                    order=instance,
+                    item=item,
+                    price=price,
+                    quantity=quantity,
+                    detail_note=detail_note,
+                )
+
+                total_price += price * quantity
+
+            instance.total_price = total_price
+            instance.save()
+
+        return instance

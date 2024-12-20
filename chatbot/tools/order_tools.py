@@ -9,7 +9,7 @@ API_ENDPOINT = 'http://django:8000/api/'
 
 @tool
 def fetch_order(
-    i: Annotated[int, 'The unique identifier (ID) of the order']
+    order_id: Annotated[int, 'The unique identifier (ID) of the order']
 ) -> Dict[str, Any]:
     """
     Retrieves information about a specific order placed, based on the unique ID provided.
@@ -17,14 +17,14 @@ def fetch_order(
     This function is not intended for creating or updating orders.
     Returns a dictionary containing order data such as ID, order type, items ordered, total price.
     """
-    response = requests.get(API_ENDPOINT + f'orders/{i}/')
+    response = requests.get(API_ENDPOINT + f'orders/{order_id}/')
     return response.json()
 
 
 class Item(BaseModel):
     item: str = Field(description='A unique identifier ID for the menu item.')
     quantity: int = Field(1, description='The number of units for item.')
-    detailed_note: str = Field(None, description='An optional note providing additional details.')
+    detail_note: str = Field(None, description='An optional note providing additional details.')
 
 
 @tool
@@ -104,8 +104,43 @@ def place_delivery_order(
 
 
 @tool
+def update_order(
+    order_id: Annotated[int, 'The unique identifier (ID) of the order'],
+    customer_name: Annotated[str, 'The name of customer placing an order.'] = None,
+    customer_phone: Annotated[str, 'Customer contact phone number.'] = None,
+    address: Annotated[str, 'The full delivery address where the order should be sent.'] = None,
+    order_note: Annotated[str, 'Note for the entire order, which can include additional instructions or requests.'] = None,
+    items: Annotated[List[Item], 'A list of menu items being ordered. This should be the complete list of items for the order.'] = None,
+) -> Dict[str, Any]:
+    """
+    Updates an exising order.
+    Useful when a customer changes their mind about a placed order, such as modifying the items, adding a note, or updating customer information.
+    This function is intended for updating orders already placed and should not be used for creating new orders.
+    Returns a dictionary containing details of the updated order.
+    """
+    data = {}
+
+    if customer_name is not None:
+        data['customer_name'] = customer_name
+    if customer_phone is not None:
+        data['customer_phone'] = customer_phone
+    if address is not None:
+        data['address'] = address
+    if order_note is not None:
+        data['order_note'] = order_note
+    if items is not None:
+        data['items'] = [item.model_dump(mode='json') for item in items]
+
+    if not data:
+        raise ValueError('At least one filed must be provided for update.')
+
+    response = requests.patch(API_ENDPOINT + f'orders/{order_id}/', json=data)
+    return response.json()
+
+
+@tool
 def cancel_order(
-    i: Annotated[int, 'The unique identifier (ID) of the order']
+    order_id: Annotated[int, 'The unique identifier (ID) of the order']
 ) -> Dict[str, Any]:
     """
     Deletes a specific order, based on the unique ID provided.
@@ -113,7 +148,7 @@ def cancel_order(
     This function is not intended for creating or updating orders.
     Returns a dictionary with a success message or error details.
     """
-    response = requests.delete(API_ENDPOINT + f'orders/{i}/')
+    response = requests.delete(API_ENDPOINT + f'orders/{order_id}/')
 
     if response.status_code == 204:
         return {'message': 'Order successfully deleted.'}
