@@ -6,6 +6,8 @@ from pydantic import BaseModel, Field
 
 API_ENDPOINT = 'http://django:8000/api/'
 
+CHATBOT_BEARER_TOKEN = "SUPER_SECRET_TOKEN"
+
 
 @tool
 def fetch_order(
@@ -45,7 +47,7 @@ def place_on_site_order(
         'order_note': order_note,
     }
 
-    response = requests.post(API_ENDPOINT + 'orders/', json=data)
+    response = requests.post(API_ENDPOINT + 'orders/', json=data, headers={'Authorization': f'Bearer {CHATBOT_BEARER_TOKEN}'})
     return response.json()
 
 
@@ -71,7 +73,7 @@ def place_pickup_order(
         'order_note': order_note,
     }
 
-    response = requests.post(API_ENDPOINT + 'orders/', json=data)
+    response = requests.post(API_ENDPOINT + 'orders/', json=data, headers={'Authorization': f'Bearer {CHATBOT_BEARER_TOKEN}'})
     return response.json()
 
 
@@ -99,7 +101,7 @@ def place_delivery_order(
         'order_note': order_note,
     }
 
-    response = requests.post(API_ENDPOINT + 'orders/', json=data)
+    response = requests.post(API_ENDPOINT + 'orders/', json=data, headers={'Authorization': f'Bearer {CHATBOT_BEARER_TOKEN}'})
     return response.json()
 
 
@@ -134,7 +136,7 @@ def update_order(
     if not data:
         raise ValueError('At least one filed must be provided for update.')
 
-    response = requests.patch(API_ENDPOINT + f'orders/{order_id}/', json=data)
+    response = requests.patch(API_ENDPOINT + f'orders/{order_id}/', json=data, headers={'Authorization': f'Bearer {CHATBOT_BEARER_TOKEN}'})
     return response.json()
 
 
@@ -148,7 +150,7 @@ def cancel_order(
     This function is not intended for creating or updating orders.
     Returns a dictionary with a success message or error details.
     """
-    response = requests.delete(API_ENDPOINT + f'orders/{order_id}/')
+    response = requests.delete(API_ENDPOINT + f'orders/{order_id}/', headers={'Authorization': f'Bearer {CHATBOT_BEARER_TOKEN}'})
 
     if response.status_code == 204:
         return {'message': 'Order successfully deleted.'}

@@ -6,7 +6,7 @@ from . import views
 
 
 router = routers.SimpleRouter()
-router.register(r'items', views.ItemViewSet)
+router.register(r'items', views.ItemViewSet, basename='items')
 
 urlpatterns = [
     path('', include(router.urls)),
