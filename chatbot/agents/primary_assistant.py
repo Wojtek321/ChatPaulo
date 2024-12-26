@@ -1,16 +1,21 @@
 from langchain_core.prompts import ChatPromptTemplate
 from tools import fetch_pizzeria_info, MenuInfoTool, OrderManagementTool
-from prompts import IDENTITY, ADDITIONAL_GUARDRAILS
+from prompts import PRIMARY_PROMPT, PRIMARY_INFORMATION, PRIMARY_EXAMPLES, IDENTITY, ADDITIONAL_GUARDRAILS
+from .assistant import Assistant, llm
 
 
 primary_assistant_prompt = ChatPromptTemplate([
     ('system', IDENTITY),
-    ('user', "Your role is to warmly welcome customers. " \
-             "You are responsible for answering customer inquiries regarding the pizzeria. " \
-             "If the customer needs help with menu-related inquiries or placing an order, you should use the relevant tool. "
-             + ADDITIONAL_GUARDRAILS),
+    ('user', PRIMARY_PROMPT
+           + PRIMARY_INFORMATION
+           + PRIMARY_EXAMPLES
+           + ADDITIONAL_GUARDRAILS),
     ('assistant', "Understood"),
     ('placeholder', '{messages}'),
 ])
 
 primary_assistant_tools = [fetch_pizzeria_info, MenuInfoTool, OrderManagementTool]
+
+assistant_runnable = primary_assistant_prompt | llm.bind_tools(primary_assistant_tools)
+
+primary_assistant = Assistant(assistant_runnable)
