@@ -10,3 +10,5 @@ python-dotenv==1.0.1
 qdrant_client==1.12.1
 Requests==2.32.3
 typing_extensions==4.12.2
+langgraph-checkpoint-postgres==2.0.9
+psycopg[binary,pool]

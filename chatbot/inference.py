@@ -4,16 +4,16 @@ from graph import graph
 
 config = {
     'configurable': {
-        'thread_id': 1
+        'thread_id': "1"
     }
 }
 
 
-async def inference(message, history):
+def inference(message, history):
     partial_message = ""
-    output = graph.astream({'messages': ('user', message)}, config, stream_mode="messages")
+    output = graph.stream({'messages': ('user', message)}, config, stream_mode="messages")
 
-    async for chunk, metadata in output:
+    for chunk, metadata in output:
         if 'assistant' in metadata['langgraph_node']:
             if isinstance(chunk.content, str):
                 partial_message += chunk.content

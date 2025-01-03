@@ -1,6 +1,7 @@
 from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import ToolNode, tools_condition
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.postgres import PostgresSaver
+from psycopg_pool import ConnectionPool
 from IPython.display import Image
 from dotenv import load_dotenv
 
@@ -102,10 +103,21 @@ workflow.add_node('return_to_primary', to_primary_assistant)
 workflow.add_edge('return_to_primary', 'primary_assistant')
 
 
-memory = MemorySaver()
+# setup checkpointer for state management
+DB_URI = "postgresql://postgres:postgres@postgress:5432/postgres"
+
+connection_kwargs = {
+    "autocommit": True,
+    "prepare_threshold": 0,
+}
+
+pool = ConnectionPool(conninfo=DB_URI, max_size=5, kwargs=connection_kwargs)
+
+checkpointer = PostgresSaver(pool)
+checkpointer.setup()
 
 graph = workflow.compile(
-    checkpointer=memory,
+    checkpointer=checkpointer,
 )
 
 
